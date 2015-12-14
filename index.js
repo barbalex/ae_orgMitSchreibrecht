@@ -25,13 +25,21 @@ adb.view('objects', 'objects', {
   let docsPrepared = 0
   body.rows.forEach((row, rowIndex) => {
     const doc = row.doc
-    // if lr, add org
-    if (doc.Gruppe && doc.Gruppe === 'Lebensräume') doc['Organisation mit Schreibrecht'] = 'FNS Kt. ZH'
+    // add org to all objects
+    if (doc.Gruppe) doc['Organisation mit Schreibrecht'] = 'FNS Kt. ZH'
+    // add org to all taxonomies,
+    if (doc.Taxonomien) {
+      doc.Taxonomien.forEach((es, index) => {
+        doc.Taxonomien[index]['Organisation mit Schreibrecht'] = 'FNS Kt. ZH'
+      })
+    }
+    // ...to all property collections...
     if (doc.Eigenschaftensammlungen) {
       doc.Eigenschaftensammlungen.forEach((es, index) => {
         doc.Eigenschaftensammlungen[index]['Organisation mit Schreibrecht'] = 'FNS Kt. ZH'
       })
     }
+    // ...and to all relation collections
     if (doc.Beziehungssammlungen) {
       doc.Beziehungssammlungen.forEach((es, index) => {
         doc.Beziehungssammlungen[index]['Organisation mit Schreibrecht'] = 'FNS Kt. ZH'
