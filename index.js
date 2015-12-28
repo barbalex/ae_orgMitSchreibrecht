@@ -3,7 +3,7 @@
 const couchPass = require('./couchPass.json')
 const url = `http://${couchPass.user}:${couchPass.pass}@127.0.0.1:5984`
 const nano = require('nano')(url)
-const adb = nano.db.use('ae')
+const adb = nano.db.use('artendb')
 
 let docsWritten = 0
 
